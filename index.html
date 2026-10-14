@@ -1,0 +1,652 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Little Forever ♡</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+
+:root {
+  --green: #315e43;
+  --sage: #83aa8a;
+  --light: #e8f2e8;
+  --cream: #f7fbf5;
+  --text: #45634d;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 5% 10%, #d8ebd9 0%, transparent 45%),
+    radial-gradient(ellipse at 95% 80%, #d1e6d3 0%, transparent 45%),
+    var(--cream);
+}
+
+#particles {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.particle {
+  position: absolute;
+  top: -40px;
+  user-select: none;
+  animation: fall linear forwards;
+  opacity: .8;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-5vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: .85; }
+  100% {
+    transform: translateY(110vh) rotate(400deg);
+    opacity: 0;
+  }
+}
+
+main {
+  width: min(92%, 540px);
+  margin: auto;
+  padding: 48px 0 35px;
+  text-align: center;
+  position: relative;
+}
+
+.tag {
+  display: inline-block;
+  padding: 9px 16px;
+  border: 1px solid #c4dbc6;
+  border-radius: 100px;
+  background: #ffffffa8;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--green);
+}
+
+h1 {
+  margin-top: 25px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(43px, 10vw, 66px);
+  line-height: 1.15;
+  font-weight: 500;
+  color: var(--green);
+}
+
+h1 em {
+  display: block;
+  font-weight: 500;
+  color: #80a989;
+}
+
+.subtitle {
+  margin-top: 17px;
+  font-size: 12px;
+  line-height: 2;
+  color: #718d76;
+}
+
+.decor {
+  margin: 25px auto;
+  color: #6f9b79;
+  font-size: 21px;
+  letter-spacing: 7px;
+}
+
+.sparkle {
+  position: absolute;
+  color: #80a989;
+  font-size: 23px;
+  animation: float 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.s1 { top: 150px; left: 2%; }
+.s2 { top: 220px; right: 2%; animation-delay: 1s; }
+.s3 { top: 440px; left: 0; animation-delay: .5s; }
+.s4 { top: 520px; right: 0; animation-delay: 1.5s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-12px) rotate(8deg); }
+}
+
+.card {
+  padding: 28px 22px;
+  border: 1px solid #ccdfcd;
+  border-radius: 25px;
+  background: #ffffffc9;
+  box-shadow: 0 15px 50px #48765018;
+  backdrop-filter: blur(8px);
+}
+
+.date {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  color: #72967a;
+}
+
+.big-heart {
+  display: inline-block;
+  margin: 19px 0;
+  font-size: 50px;
+  filter: drop-shadow(0 5px 10px #7ca78540);
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.13); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.08); }
+}
+
+.card h2 {
+  margin-bottom: 13px;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--green);
+}
+
+.card p {
+  font-size: 12px;
+  line-height: 2;
+  color: #6f8873;
+}
+
+button {
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.main-btn {
+  margin-top: 23px;
+  padding: 14px 22px;
+  border-radius: 100px;
+  color: white;
+  background: linear-gradient(120deg, #80ad88, #315e43);
+  box-shadow: 0 8px 20px #477d5430;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+#letter {
+  display: none;
+  margin-top: 22px;
+  padding: 23px 20px;
+  text-align: left;
+  border: 1px dashed #91b99a;
+  border-radius: 19px;
+  background: #f5faf3;
+  animation: appear .5s ease;
+}
+
+#letter.show { display: block; }
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#letter h3 {
+  margin-bottom: 15px;
+  font-family: 'Playfair Display', serif;
+  font-size: 23px;
+  color: var(--green);
+}
+
+#letter p {
+  margin-bottom: 13px;
+  font-size: 12px;
+  line-height: 2;
+  color: #607b65;
+}
+
+.signature {
+  margin-top: 20px;
+  text-align: right;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--green);
+  font-size: 15px;
+}
+
+/* MUSIC PLAYER */
+
+.music-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 23px;
+  padding: 14px;
+  border: 1px solid #cbdcca;
+  border-radius: 18px;
+  background: #edf5ec;
+  text-align: left;
+}
+
+.music-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 43px;
+  height: 43px;
+  border-radius: 14px;
+  background: #d6e8d6;
+  color: var(--green);
+  font-size: 24px;
+}
+
+.music-info {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.music-info strong {
+  font-size: 12px;
+  color: var(--green);
+}
+
+.music-info span {
+  font-size: 10px;
+  color: #79947d;
+}
+
+.music-btn {
+  flex-shrink: 0;
+  padding: 11px 13px;
+  border-radius: 30px;
+  background: var(--green);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+#youtube-player {
+  margin-top: 12px;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+#youtube-player iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+}
+
+/* SURPRISE */
+
+.surprise {
+  margin-top: 22px;
+  padding: 23px 18px;
+  border: 1px solid #d0e2ce;
+  border-radius: 22px;
+  background: #e9f3e7;
+}
+
+.surprise h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 23px;
+  font-weight: 500;
+  color: var(--green);
+}
+
+.surprise > p {
+  margin-top: 9px;
+  font-size: 12px;
+  line-height: 1.9;
+  color: #708a73;
+}
+
+#secret {
+  display: none;
+  margin-top: 18px;
+  color: var(--green);
+  line-height: 2;
+  animation: appear .5s ease;
+}
+
+#secret.show { display: block; }
+
+.secret-flowers {
+  font-size: 31px;
+  letter-spacing: 5px;
+  margin-bottom: 10px;
+}
+
+#secret p {
+  font-size: 12px;
+}
+
+footer {
+  padding-top: 30px;
+  font-size: 10px;
+  line-height: 2.2;
+  letter-spacing: 2px;
+  color: #83a48a;
+}
+
+@media (max-width: 400px) {
+  main { padding-top: 38px; }
+  .card { padding: 25px 17px; }
+  .music-player { gap: 8px; padding: 10px; }
+  .music-btn { padding: 10px; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="particles"></div>
+
+<main>
+
+  <span class="sparkle s1">✿</span>
+  <span class="sparkle s2">♡</span>
+  <span class="sparkle s3">✧</span>
+  <span class="sparkle s4">❀</span>
+
+  <div class="tag">A LITTLE LOVE NOTE · 001</div>
+
+  <h1>
+    Happy
+    <em>1 Month ♡</em>
+  </h1>
+
+  <p class="subtitle">
+    one month of us, a thousand little feelings.<br>
+    and you're still my favorite person. 💚
+  </p>
+
+  <div class="decor">୨୧ · ❀ · ୨୧</div>
+
+  <!-- MAIN ANNIVERSARY CARD -->
+
+  <section class="card">
+
+    <div class="date">OUR FIRST LITTLE MILESTONE</div>
+
+    <div class="big-heart">💚</div>
+
+    <h2>One month with you.</h2>
+
+    <p>
+      30 days of stories, silly arguments,<br>
+      little moods, warm apologies,<br>
+      and choosing each other again. ♡
+    </p>
+
+    <button class="main-btn" onclick="openLetter()">
+      OPEN YOUR LETTER 💌
+    </button>
+
+    <!-- LOVE LETTER -->
+
+    <div id="letter">
+
+      <h3>to my favorite person, ♡</h3>
+
+      <p>
+        happy mensive yang pertama, sayanggg! 💚
+        makasih udah bertahan sama aku selama sebulan ini.
+        maaf ya kalau aku masih sering marah-marah,
+        ngambek, manja, dan kadang terlalu egois.
+      </p>
+
+      <p>
+        aku tahu kita masih sering berantem karena hal-hal
+        kecil. maaf kalau sikap aku kadang bikin kamu capek.
+        aku masih belajar buat lebih ngerti kamu, lebih sabar,
+        dan nggak selalu nurutin ego aku sendiri.
+      </p>
+
+      <p>
+        aku nggak janji kita bakal selalu baik-baik aja,
+        tapi aku pengen kita terus belajar bareng.
+        kalau ada masalah, semoga kita bisa saling dengerin,
+        saling maafin, dan memperbaiki semuanya sama-sama.
+      </p>
+
+      <p>
+        thank you for being here and being part of my little
+        world. semoga satu bulan ini jadi awal dari banyak
+        cerita kita berikutnya. i hope we keep choosing
+        each other, again and again. 💚
+      </p>
+
+      <div class="signature">
+        yours, always & ever. ♡
+      </div>
+
+    </div>
+
+    <!-- MUSIC PLAYER -->
+
+    <div class="music-player">
+
+      <div class="music-icon">♫</div>
+
+      <div class="music-info">
+        <strong>our little song ♡</strong>
+        <span>your song · starting at 01:04</span>
+      </div>
+
+      <button
+        id="musicButton"
+        class="music-btn"
+        onclick="toggleMusic()">
+        ▶ PLAY
+      </button>
+
+    </div>
+
+    <div id="youtube-player"></div>
+
+    <p style="margin-top:10px;font-size:10px">
+      tap play and let this song remind you of us. ♡
+    </p>
+
+  </section>
+
+  <!-- SECRET SURPRISE -->
+
+  <section class="surprise">
+
+    <h3>psst... one more thing 🎁</h3>
+
+    <p>
+      there's a little secret waiting for you.<br>
+      wanna see it, sayang?
+    </p>
+
+    <button class="main-btn" onclick="openSecret()">
+      UNLOCK MY SECRET ♡
+    </button>
+
+    <div id="secret">
+
+      <div class="secret-flowers">💐 💌 💚</div>
+
+      <p>
+        if i could start this story all over again,<br>
+        i'd still want to meet you. ♡
+      </p>
+
+      <p style="margin-top:10px">
+        happy first month,semestaku!<br>
+        jangan bosen sama aku yaaa. mwah! 😚
+      </p>
+
+    </div>
+
+  </section>
+
+  <footer>
+    MADE WITH LOVE, JUST FOR YOU
+    <div style="margin-top:12px;letter-spacing:6px">
+      ✿ ♡ ❀ ♡ ✿
+    </div>
+    <div style="margin-top:8px">
+      ONE MONTH DOWN · MORE MEMORIES TO GO
+    </div>
+  </footer>
+
+</main>
+
+<script>
+/* FALLING FLOWERS AND HEARTS */
+
+const symbols = [
+  '♡', '♥', '💚', '🌿', '🌸',
+  '✿', '❀', '୨୧', '✧', '🍃'
+];
+
+function createParticle() {
+  const particle = document.createElement('span');
+
+  particle.className = 'particle';
+
+  particle.textContent =
+    symbols[Math.floor(Math.random() * symbols.length)];
+
+  particle.style.left = Math.random() * 100 + 'vw';
+
+  particle.style.fontSize =
+    (12 + Math.random() * 15) + 'px';
+
+  particle.style.animationDuration =
+    (6 + Math.random() * 7) + 's';
+
+  document.getElementById('particles')
+    .appendChild(particle);
+
+  setTimeout(() => particle.remove(), 14000);
+}
+
+setInterval(createParticle, 350);
+
+
+/* OPEN AND CLOSE LOVE LETTER */
+
+function openLetter() {
+  const letter = document.getElementById('letter');
+
+  letter.classList.toggle('show');
+
+  const button = document.querySelector('.card .main-btn');
+
+  button.textContent = letter.classList.contains('show')
+    ? 'CLOSE YOUR LETTER ♡'
+    : 'OPEN YOUR LETTER 💌';
+
+  if (letter.classList.contains('show')) {
+    letter.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    });
+
+    burst();
+  }
+}
+
+
+/* SECRET SURPRISE */
+
+function openSecret() {
+  const secret = document.getElementById('secret');
+
+  secret.classList.toggle('show');
+
+  const button = document.querySelector('.surprise .main-btn');
+
+  button.textContent = secret.classList.contains('show')
+    ? 'CLOSE MY SECRET ♡'
+    : 'UNLOCK MY SECRET ♡';
+
+  if (secret.classList.contains('show')) {
+    secret.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    });
+
+    burst();
+  }
+}
+
+
+/* YOUTUBE MUSIC STARTING AT 1:04 */
+
+let musicPlaying = false;
+
+function toggleMusic() {
+  const player = document.getElementById('youtube-player');
+  const button = document.getElementById('musicButton');
+
+  if (!musicPlaying) {
+
+    player.innerHTML = `
+      <iframe
+        src="https://www.youtube.com/embed/dg3VDvHtX8Q?start=64&autoplay=1&rel=0"
+        title="Our Little Song"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    `;
+
+    button.textContent = 'Ⅱ STOP';
+    musicPlaying = true;
+
+  } else {
+
+    player.innerHTML = '';
+
+    button.textContent = '▶ PLAY';
+    musicPlaying = false;
+
+  }
+}
+
+
+/* LITTLE FLOWER AND HEART BURST */
+
+function burst() {
+  for (let i = 0; i < 22; i++) {
+    setTimeout(createParticle, i * 45);
+  }
+}
+</script>
+
+</body>
+</html>
