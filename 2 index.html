@@ -1,0 +1,821 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrow to My Heart ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #091510;
+  --panel: #11251b;
+  --green: #8ba891;
+  --light: #dce9d8;
+  --cream: #f5f1e8;
+  --muted: #9bad9e;
+  --pink: #e7a4b5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 15% 10%, #203a2a 0%, transparent 38%),
+    radial-gradient(ellipse at 90% 90%, #183024 0%, transparent 35%),
+    var(--bg);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 14px;
+}
+
+.page {
+  width: 100%;
+  max-width: 850px;
+  margin: auto;
+}
+
+.top {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  color: var(--green);
+  letter-spacing: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 7vw, 58px);
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 12px 0;
+}
+
+h1 em {
+  color: var(--pink);
+  font-weight: 500;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 0 auto;
+  max-width: 450px;
+}
+
+.game-card {
+  background: rgba(17, 37, 27, 0.88);
+  border: 1px solid rgba(170, 199, 173, 0.17);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25);
+}
+
+.game-header {
+  padding: 17px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid rgba(170, 199, 173, 0.12);
+}
+
+.game-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.score {
+  font-family: 'Playfair Display', serif;
+  font-size: 23px;
+  color: var(--light);
+}
+
+.score span {
+  color: var(--pink);
+}
+
+.canvas-wrap {
+  position: relative;
+  background: #0d1d14;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hint {
+  text-align: center;
+  color: #9bad9e;
+  font-size: 11px;
+  padding: 12px 10px 4px;
+}
+
+.controls {
+  padding: 15px 20px 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: transform .2s, opacity .2s, background .2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+.shoot-btn {
+  background: var(--light);
+  color: #14251a;
+  padding: 13px 27px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.reset-btn {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid rgba(170, 199, 173, 0.2);
+  padding: 12px 20px;
+  border-radius: 100px;
+  font-size: 12px;
+}
+
+.message-box {
+  display: none;
+  text-align: center;
+  margin-top: 18px;
+  padding: 24px 20px;
+  background: rgba(17, 37, 27, 0.9);
+  border: 1px solid rgba(231, 164, 181, .3);
+  border-radius: 18px;
+  animation: appear .5s ease;
+}
+
+.message-box.show {
+  display: block;
+}
+
+.message-small {
+  color: var(--pink);
+  letter-spacing: 3px;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.message-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 27px;
+  color: var(--cream);
+  margin: 10px 0;
+}
+
+.message-text {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.progress-area {
+  margin: 18px 0 0;
+  text-align: center;
+}
+
+.progress-text {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 9px;
+}
+
+.progress-track {
+  max-width: 280px;
+  height: 4px;
+  border-radius: 10px;
+  background: #263c2d;
+  margin: auto;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--pink);
+  transition: width .3s;
+}
+
+.secret {
+  display: none;
+  margin-top: 18px;
+  padding: 25px 22px;
+  text-align: center;
+  border: 1px solid rgba(231, 164, 181, .4);
+  background: linear-gradient(145deg, #203a2a, #12241a);
+  border-radius: 18px;
+  animation: appear .8s ease;
+}
+
+.secret.show {
+  display: block;
+}
+
+.secret .letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--pink);
+}
+
+.secret h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 30px;
+  margin: 14px 0;
+}
+
+.secret p {
+  max-width: 500px;
+  margin: 0 auto;
+  font-size: 13px;
+  line-height: 2;
+  color: #c4d3c4;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 23px;
+  color: #718779;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 500px) {
+  body {
+    padding: 25px 10px;
+  }
+
+  .game-header {
+    padding: 14px;
+  }
+
+  .controls {
+    padding: 14px 10px 17px;
+  }
+
+  .shoot-btn {
+    padding: 13px 20px;
+  }
+
+  .reset-btn {
+    padding: 12px 15px;
+  }
+
+  .message-title {
+    font-size: 23px;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+
+  <header class="top">
+    <div class="eyebrow">a little game, just for you ♡</div>
+    <h1>Arrow to <em>My Heart</em></h1>
+    <p class="subtitle">
+      Di antara banyaknya kemungkinan, hatiku tetap memilih kamu.
+      <br>Yuk, buktiin kalau panahmu selalu tahu arah pulang.
+    </p>
+  </header>
+
+  <section class="game-card">
+    <div class="game-header">
+      <div>
+        <div class="game-label">made with love, for goti</div>
+        <div style="font-size:12px;color:#c4d3c4;margin-top:5px">
+          tembak hati kecil itu ♡
+        </div>
+      </div>
+
+      <div class="score">♡ <span id="score">0</span><span style="color:#8ba891;font-size:14px"> / 10</span></div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="game" width="850" height="410"></canvas>
+    </div>
+
+    <div class="hint">
+      Arahkan panahmu ke hati yang bergerak. Setiap kena, ada pesan kecil buat kamu.
+    </div>
+
+    <div class="controls">
+      <button class="shoot-btn" id="shootBtn">TEMBAK HATIKU ♡</button>
+      <button class="reset-btn" id="resetBtn">ulang ↻</button>
+    </div>
+  </section>
+
+  <section class="message-box" id="messageBox">
+    <div class="message-small">you hit my heart ♡</div>
+    <div class="message-title" id="messageTitle">semestaku ♡</div>
+    <div class="message-text" id="messageText">
+      you will always have my heart.
+    </div>
+  </section>
+
+  <div class="progress-area">
+    <div class="progress-text" id="progressText">10 HATI LAGI? NO, JUST 10 REASONS TO LOVE YOU.</div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <section class="secret" id="secret">
+    <div class="letter">✉ A LITTLE SECRET FOR GOTI</div>
+    <h2>for you, always.</h2>
+    <p>
+      Goti, makasih ya udah hadir di hidupku.
+      Mungkin aku belum selalu bisa jadi yang terbaik,
+      kadang masih suka ngambek, marah, atau bikin kamu capek.
+      Tapi di balik semua itu, aku beneran sayang sama kamu.
+      <br><br>
+      Aku nggak janji kita bakal selalu punya hari yang sempurna,
+      tapi aku mau terus belajar buat ngerti kamu,
+      dengerin kamu, dan tumbuh bareng kamu.
+      <br><br>
+      Kalau suatu hari dunia terasa berat,
+      semoga kamu tetap ingat kalau ada aku
+      yang selalu senang punya kamu.
+      <br><br>
+      <em style="color:#e7a4b5">happy mensive, my favorite person. ♡</em>
+    </p>
+  </section>
+
+  <footer class="footer">
+    MADE WITH LOVE, ONLY FOR GOTI · ♡
+  </footer>
+
+</main>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+const scoreEl = document.getElementById("score");
+const messageBox = document.getElementById("messageBox");
+const messageTitle = document.getElementById("messageTitle");
+const messageText = document.getElementById("messageText");
+const progressFill = document.getElementById("progressFill");
+const progressText = document.getElementById("progressText");
+const secret = document.getElementById("secret");
+const shootBtn = document.getElementById("shootBtn");
+
+const words = [
+  ["semestaku ♡", "you will always have my heart."],
+  ["my favorite human.", "kamu tetap kesayanganku."],
+  ["rumahku.", "you feel like home to me."],
+  ["cuma kamu.", "no one else, just you."],
+  ["i choose you.", "hari ini dan seterusnya."],
+  ["sayangku ♡", "please stay a little longer."],
+  ["my whole world.", "duniaku lebih indah sejak ada kamu."],
+  ["jangan bosen ya?", "i still have so much love for you."],
+  ["always yours.", "hatiku tetap pulang ke kamu."],
+  ["goti, i love you.", "kamu dan aku, semoga selalu."]
+];
+
+let score = 0;
+let shots = [];
+let particles = [];
+let floatingTexts = [];
+let lastMessageIndex = -1;
+let gameWon = false;
+let lastTime = 0;
+let elapsed = 0;
+
+const target = {
+  x: 590,
+  y: 175,
+  radius: 25,
+  baseY: 175,
+  direction: 1,
+  speed: 1.6
+};
+
+const bow = {
+  x: 125,
+  y: 270
+};
+
+function heartPath(x, y, size) {
+  ctx.beginPath();
+  ctx.moveTo(x, y + size * 0.35);
+  ctx.bezierCurveTo(
+    x - size * 1.1, y - size * 0.3,
+    x - size * 0.7, y - size * 1.0,
+    x, y - size * 0.45
+  );
+  ctx.bezierCurveTo(
+    x + size * 0.7, y - size * 1.0,
+    x + size * 1.1, y - size * 0.3,
+    x, y + size * 0.35
+  );
+  ctx.closePath();
+}
+
+function drawHeart(x, y, size, color) {
+  heartPath(x, y, size);
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+function drawBackground() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  gradient.addColorStop(0, "#11271b");
+  gradient.addColorStop(1, "#09150f");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Bintang kecil
+  for (let i = 0; i < 45; i++) {
+    const x = (i * 173 + 37) % canvas.width;
+    const y = (i * 83 + 19) % canvas.height;
+    const alpha = 0.15 + Math.abs(Math.sin(elapsed * 0.001 + i)) * 0.35;
+
+    ctx.fillStyle = `rgba(220, 233, 216, ${alpha})`;
+    ctx.beginPath();
+    ctx.arc(x, y, i % 3 === 0 ? 1.6 : 1, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Garis tanah
+  ctx.strokeStyle = "rgba(139, 168, 145, .18)";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, 350);
+  ctx.lineTo(canvas.width, 350);
+  ctx.stroke();
+
+  // Rumput kecil
+  for (let i = 0; i < canvas.width; i += 18) {
+    ctx.strokeStyle = "rgba(139, 168, 145, .2)";
+    ctx.beginPath();
+    ctx.moveTo(i, 350);
+    ctx.lineTo(i - 4, 340 + (i % 5));
+    ctx.stroke();
+  }
+}
+
+function drawBow() {
+  ctx.save();
+
+  // Busur
+  ctx.strokeStyle = "#b7c9ae";
+  ctx.lineWidth = 4;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(bow.x, bow.y - 65);
+  ctx.quadraticCurveTo(bow.x + 47, bow.y, bow.x, bow.y + 65);
+  ctx.stroke();
+
+  // Tali busur
+  ctx.strokeStyle = "rgba(220, 233, 216, .65)";
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(bow.x, bow.y - 65);
+  ctx.lineTo(bow.x - 2, bow.y + 65);
+  ctx.stroke();
+
+  // Pegangan
+  ctx.strokeStyle = "#e7a4b5";
+  ctx.lineWidth = 5;
+  ctx.beginPath();
+  ctx.moveTo(bow.x + 2, bow.y - 13);
+  ctx.lineTo(bow.x + 2, bow.y + 13);
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+function drawTarget() {
+  // Lingkaran cahaya
+  const glow = ctx.createRadialGradient(
+    target.x, target.y, 4,
+    target.x, target.y, 75
+  );
+  glow.addColorStop(0, "rgba(231,164,181,.15)");
+  glow.addColorStop(1, "rgba(231,164,181,0)");
+
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(target.x, target.y, 75, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Lingkaran target
+  ctx.strokeStyle = "rgba(231,164,181,.35)";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.arc(target.x, target.y, 39, 0, Math.PI * 2);
+  ctx.stroke();
+
+  ctx.strokeStyle = "rgba(231,164,181,.2)";
+  ctx.beginPath();
+  ctx.arc(target.x, target.y, 50, 0, Math.PI * 2);
+  ctx.stroke();
+
+  drawHeart(target.x, target.y, 28, "#e7a4b5");
+
+  ctx.fillStyle = "#f5f1e8";
+  ctx.font = "14px Georgia";
+  ctx.textAlign = "center";
+  ctx.fillText("♡", target.x, target.y + 5);
+}
+
+function drawArrow(arrow) {
+  const angle = Math.atan2(arrow.vy, arrow.vx);
+
+  ctx.save();
+  ctx.translate(arrow.x, arrow.y);
+  ctx.rotate(angle);
+
+  ctx.strokeStyle = "#dce9d8";
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(-25, 0);
+  ctx.lineTo(12, 0);
+  ctx.stroke();
+
+  ctx.fillStyle = "#e7a4b5";
+  ctx.beginPath();
+  ctx.moveTo(17, 0);
+  ctx.lineTo(8, -4);
+  ctx.lineTo(8, 4);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.strokeStyle = "#8ba891";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(-23, 0);
+  ctx.lineTo(-29, -5);
+  ctx.moveTo(-23, 0);
+  ctx.lineTo(-29, 5);
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+function createParticles(x, y, color) {
+  for (let i = 0; i < 18; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 1 + Math.random() * 3;
+
+    particles.push({
+      x,
+      y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      life: 1,
+      color
+    });
+  }
+}
+
+function drawParticles() {
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life -= 0.018;
+
+    ctx.globalAlpha = Math.max(0, p.life);
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  ctx.globalAlpha = 1;
+  particles = particles.filter(p => p.life > 0);
+}
+
+function drawFloatingTexts() {
+  floatingTexts.forEach(t => {
+    t.y -= 0.45;
+    t.life -= 0.012;
+
+    ctx.globalAlpha = Math.max(0, t.life);
+    ctx.textAlign = "center";
+    ctx.font = "italic 17px Georgia";
+    ctx.fillStyle = "#f5d2dc";
+    ctx.fillText(t.text, t.x, t.y);
+  });
+
+  ctx.globalAlpha = 1;
+  floatingTexts = floatingTexts.filter(t => t.life > 0);
+}
+
+function shoot() {
+  if (gameWon) return;
+
+  if (shots.length >= 3) {
+    floatingTexts.push({
+      x: 180,
+      y: 200,
+      text: "tunggu panahnya dulu ♡",
+      life: 1
+    });
+    return;
+  }
+
+  const startX = bow.x + 5;
+  const startY = bow.y;
+
+  const dx = target.x - startX;
+  const dy = target.y - startY;
+  const distance = Math.sqrt(dx * dx + dy * dy);
+  const speed = 10;
+
+  shots.push({
+    x: startX,
+    y: startY,
+    vx: (dx / distance) * speed,
+    vy: (dy / distance) * speed,
+    active: true
+  });
+}
+
+function registerHit(x, y) {
+  score++;
+  scoreEl.textContent = score;
+
+  createParticles(x, y, "#e7a4b5");
+
+  const index = (score - 1) % words.length;
+  messageTitle.textContent = words[index][0];
+  messageText.textContent = words[index][1];
+
+  messageBox.classList.remove("show");
+  void messageBox.offsetWidth;
+  messageBox.classList.add("show");
+
+  progressFill.style.width = Math.min(score / 10 * 100, 100) + "%";
+
+  if (score < 10) {
+    progressText.textContent = `KAMU SUDAH MENEMUKAN ${score} DARI 10 ALASAN ♡`;
+  } else {
+    progressText.textContent = "ALL MY HEART, ALL FOR YOU ♡";
+    gameWon = true;
+    secret.classList.add("show");
+    shootBtn.textContent = "YOU HAVE MY HEART ♡";
+    shootBtn.disabled = true;
+    shootBtn.style.opacity = ".65";
+  }
+}
+
+function updateShots() {
+  shots.forEach(arrow => {
+    if (!arrow.active) return;
+
+    arrow.x += arrow.vx;
+    arrow.y += arrow.vy;
+
+    const dx = arrow.x - target.x;
+    const dy = arrow.y - target.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < 30) {
+      arrow.active = false;
+      registerHit(target.x, target.y);
+      return;
+    }
+
+    if (
+      arrow.x > canvas.width + 20 ||
+      arrow.y < -20 ||
+      arrow.y > canvas.height + 20
+    ) {
+      arrow.active = false;
+    }
+  });
+
+  shots = shots.filter(arrow => arrow.active);
+}
+
+function animate(timestamp) {
+  if (!lastTime) lastTime = timestamp;
+  const delta = Math.min(timestamp - lastTime, 32);
+  lastTime = timestamp;
+  elapsed += delta;
+
+  drawBackground();
+
+  if (!gameWon) {
+    target.x += target.direction * target.speed * (delta / 16);
+
+    if (target.x > 745) {
+      target.direction = -1;
+    }
+
+    if (target.x < 400) {
+      target.direction = 1;
+    }
+
+    target.y = target.baseY + Math.sin(elapsed * 0.002) * 65;
+  }
+
+  drawBow();
+  drawTarget();
+
+  updateShots();
+  shots.forEach(drawArrow);
+
+  drawParticles();
+  drawFloatingTexts();
+
+  // Label kecil di arena
+  ctx.textAlign = "left";
+  ctx.font = "10px sans-serif";
+  ctx.fillStyle = "rgba(220,233,216,.5)";
+  ctx.fillText("AIM WITH LOVE", 25, 30);
+
+  requestAnimationFrame(animate);
+}
+
+function resetGame() {
+  score = 0;
+  scoreEl.textContent = "0";
+  shots = [];
+  particles = [];
+  floatingTexts = [];
+  gameWon = false;
+  lastTime = 0;
+  elapsed = 0;
+
+  target.x = 590;
+  target.y = 175;
+  target.baseY = 175;
+  target.direction = 1;
+
+  messageBox.classList.remove("show");
+  secret.classList.remove("show");
+  progressFill.style.width = "0%";
+  progressText.textContent = "10 HATI LAGI? NO, JUST 10 REASONS TO LOVE YOU.";
+
+  shootBtn.textContent = "TEMBAK HATIKU ♡";
+  shootBtn.disabled = false;
+  shootBtn.style.opacity = "1";
+}
+
+shootBtn.addEventListener("click", shoot);
+document.getElementById("resetBtn").addEventListener("click", resetGame);
+
+canvas.addEventListener("click", shoot);
+
+requestAnimationFrame(animate);
+</script>
+
+</body>
+</html>
